@@ -1,0 +1,23 @@
+# Block frontend & root dependencies
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+# Block python virtual environments (root & backend)
+venv/
+.venv/
+backend/venv/
+backend/.venv/
+
+# Block python caches & files
+__pycache__/
+backend/__pycache__/
+.pytest_cache/
+
+# Block environment keys (root)
+.env
+
+# Block OS specific files
+.DS_Store
+Thumbs.db
