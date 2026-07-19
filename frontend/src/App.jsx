@@ -5,7 +5,7 @@ import ApprovalCard from './components/ApprovalCard';
 import FinalReport from './components/FinalReport';
 import './index.css';
 
-const API_BASE = 'http://localhost:8000/api';
+const API_BASE = 'http://localhost:8001/api';
 
 function App() {
   const [threadId, setThreadId] = useState(null);

@@ -1,5 +1,35 @@
 import { downloadReportPdf } from '../utils/pdfExport';
 
+const formatText = (text) => {
+  if (!text) return null;
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  
+  // Split the text by double newlines to create separate paragraphs for better spacing
+  return text.split(/\n\n+/).map((paragraph, pIdx) => {
+    const parts = paragraph.split(urlRegex);
+    return (
+      <p key={pIdx} style={{ marginBottom: '1.5em', lineHeight: '1.8' }}>
+        {parts.map((part, i) => {
+          if (part.match(urlRegex)) {
+            return (
+              <a 
+                key={i} 
+                href={part} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{ color: 'var(--accent-primary)', textDecoration: 'underline' }}
+              >
+                {part}
+              </a>
+            );
+          }
+          return part;
+        })}
+      </p>
+    );
+  });
+};
+
 export default function FinalReport({ report }) {
   if (!report) return null;
 
@@ -16,12 +46,12 @@ export default function FinalReport({ report }) {
             Download PDF
           </button>
         </div>
-        <div className="report-summary">{report.executive_summary}</div>
+        <div className="report-summary">{formatText(report.executive_summary)}</div>
         
         {report.sections?.map((section, idx) => (
-          <div key={idx} className="report-section">
-            <h3>{section.heading}</h3>
-            <p>{section.body}</p>
+          <div key={idx} className="report-section" style={{ marginTop: '40px' }}>
+            <h3 style={{ marginBottom: '24px', fontSize: '24px' }}>{section.heading}</h3>
+            {formatText(section.body)}
           </div>
         ))}
         
